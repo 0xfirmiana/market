@@ -1,6 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly 
+from .models import Product
+from .serializers import ProductSerializer
 
-# Create your views here.
-def index(request):
-    return HttpResponse("Backend works!!!!")
+class all_products(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
